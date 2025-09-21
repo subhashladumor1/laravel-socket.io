@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -22,59 +22,114 @@
     <!-- Custom CSS -->
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #111b21;
-            color: #e9edef;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            overflow: hidden;
+            height: 100vh;
         }
         .navbar-brand {
             font-weight: 600;
             color: #2c3e50 !important;
         }
+        #app {
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container-fluid {
+            height: 100vh;
+            overflow: hidden;
+        }
         .chat-container {
             height: calc(100vh - 76px);
-            background: #0b141a;
-            border-radius: 0;
-            box-shadow: none;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             overflow: hidden;
-            border: 1px solid #2a3942;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            min-height: 0;
+            justify-content: space-between;
         }
         .user-list {
-            background: #111b21;
-            border-right: 1px solid #2a3942;
-            height: 100%;
+            background: #f8f9fa;
+            border-right: 1px solid #e9ecef;
+            height: calc(100vh - 76px);
             overflow-y: auto;
+            position: sticky;
+            top: 0;
+            /* Custom scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e0 #f7fafc;
         }
-        .room-item {
+        .user-list::-webkit-scrollbar {
+            width: 6px;
+        }
+        .user-list::-webkit-scrollbar-track {
+            background: #f7fafc;
+        }
+        .user-list::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 3px;
+        }
+        .user-list::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+        .user-item {
             transition: all 0.2s ease;
-            border-bottom: 1px solid #2a3942;
-            color: #e9edef;
+            border-bottom: 1px solid #e9ecef;
         }
-        .room-item:hover {
-            background-color: #2a3942;
+        .user-item:hover {
+            background-color: #e9ecef;
         }
-        .room-item.active {
-            background-color: #2a3942;
-            color: #e9edef;
+        .user-item.active {
+            background-color: #007bff;
+            color: white;
         }
         .user-avatar {
-            width: 49px;
-            height: 49px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            background: #6b7c85;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-weight: 500;
-            font-size: 18px;
-            margin-right: 13px;
+            font-weight: 600;
+            font-size: 16px;
         }
         .message-container {
-            height: calc(100% - 120px);
+            height: calc(100vh - 240px);
+            max-height: calc(100vh - 240px);
             overflow-y: auto;
-            background: #0b141a;
-            padding: 20px;
-            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="%23ffffff" opacity="0.02"/><circle cx="75" cy="75" r="1" fill="%23ffffff" opacity="0.02"/><circle cx="50" cy="10" r="0.5" fill="%23ffffff" opacity="0.02"/><circle cx="10" cy="60" r="0.5" fill="%23ffffff" opacity="0.02"/><circle cx="90" cy="40" r="0.5" fill="%23ffffff" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            background: #ffffff;
+            padding: 20px 20px 100px 20px;
+            flex: 1;
+            position: relative;
+            min-height: 0;
+            margin-bottom: 0;
+            /* Custom scrollbar */
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e0 #f7fafc;
+            scroll-behavior: smooth;
+        }
+        .message-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        .message-container::-webkit-scrollbar-track {
+            background: #f7fafc;
+            border-radius: 4px;
+        }
+        .message-container::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 4px;
+            border: 1px solid #f7fafc;
+        }
+        .message-container::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+        .message-container::-webkit-scrollbar-thumb:active {
+            background: #718096;
         }
         .message {
             margin-bottom: 15px;
@@ -95,46 +150,47 @@
             word-wrap: break-word;
         }
         .message.sent .message-bubble {
-            background: #005c4b;
-            color: #e9edef;
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            color: white;
             border-bottom-right-radius: 4px;
-            box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
         }
         .message.received .message-bubble {
-            background: #202c33;
-            color: #e9edef;
+            background: #f1f3f4;
+            color: #333;
             border-bottom-left-radius: 4px;
-            box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
         }
         .message-time {
             font-size: 11px;
-            opacity: 0.6;
+            opacity: 0.7;
             margin-top: 4px;
-            color: #8696a0;
         }
         .message-status {
             display: flex;
             align-items: center;
             margin-top: 4px;
             font-size: 11px;
+            justify-content: flex-end;
         }
         .message-status i {
             margin-left: 4px;
         }
         .message-status .single-tick {
-            color: #8696a0;
+            color: #999;
         }
         .message-status .double-tick {
-            color: #53bdeb;
+            color: #4fc3f7;
         }
         .message-status .double-tick.read {
-            color: #53bdeb;
+            color: #4caf50;
+        }
+        .message-status .bi-clock {
+            color: #ccc;
         }
         .typing-indicator {
             display: flex;
             align-items: center;
             padding: 8px 16px;
-            color: #8696a0;
+            color: #666;
             font-style: italic;
             font-size: 14px;
         }
@@ -146,7 +202,7 @@
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background-color: #8696a0;
+            background-color: #666;
             margin: 0 1px;
             animation: typing 1.4s infinite ease-in-out;
         }
@@ -158,7 +214,7 @@
         }
         .last-seen {
             font-size: 12px;
-            color: #8696a0;
+            color: #666;
             margin-top: 2px;
         }
         .room-item {
@@ -166,25 +222,25 @@
             border-left: 3px solid transparent;
         }
         .room-item:hover {
-            background-color: #2a3942;
+            background-color: #f8f9fa;
         }
         .room-item.active {
-            background-color: #2a3942;
-            border-left-color: #00a884;
+            background-color: #e3f2fd;
+            border-left-color: #2196f3;
         }
         .room-preview {
             font-size: 13px;
-            color: #8696a0;
+            color: #666;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
         .room-time {
             font-size: 11px;
-            color: #8696a0;
+            color: #999;
         }
         .unread-badge {
-            background: #00a884;
+            background: #4caf50;
             color: white;
             border-radius: 10px;
             padding: 2px 6px;
@@ -197,30 +253,42 @@
             right: 0;
             width: 12px;
             height: 12px;
-            background: #00a884;
+            background: #4caf50;
             border-radius: 50%;
-            border: 2px solid #111b21;
+            border: 2px solid white;
         }
         .message-input-container {
-            background: #202c33;
-            border-top: 1px solid #2a3942;
-            padding: 20px;
+            background: #ffffff;
+            border-top: 1px solid #e9ecef;
+            padding: 8px;
+            position: sticky;
+            bottom: 0;
+            z-index: 100;
+            margin-bottom: 200px;
+            flex-shrink: 0;
+            height: auto;
+            min-height: 80px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
         }
         .status-online {
-            color: #00a884;
+            color: #28a745;
         }
         .status-offline {
-            color: #8696a0;
+            color: #6c757d;
         }
         .chat-header {
-            background: #202c33;
-            color: #e9edef;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             padding: 20px;
-            border-bottom: 1px solid #2a3942;
+            border-bottom: 1px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            flex-shrink: 0;
         }
         .typing-indicator {
             font-style: italic;
-            color: #8696a0;
+            color: #6c757d;
             font-size: 14px;
         }
         .no-chat-selected {
@@ -228,7 +296,7 @@
             align-items: center;
             justify-content: center;
             height: 100%;
-            color: #8696a0;
+            color: #6c757d;
             text-align: center;
         }
         .no-chat-selected i {
@@ -236,49 +304,42 @@
             margin-bottom: 16px;
             opacity: 0.5;
         }
-        .form-control {
-            background-color: #2a3942;
-            border: 1px solid #2a3942;
-            color: #e9edef;
-            border-radius: 21px;
-        }
-        .form-control:focus {
-            background-color: #2a3942;
-            border-color: #00a884;
-            color: #e9edef;
-            box-shadow: 0 0 0 0.2rem rgba(0, 168, 132, 0.25);
-        }
-        .form-control::placeholder {
-            color: #8696a0;
-        }
-        .btn-primary {
-            background-color: #00a884;
-            border-color: #00a884;
-            border-radius: 50%;
-            width: 45px;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-primary:hover {
-            background-color: #008f73;
-            border-color: #008f73;
-        }
-        .btn-primary:focus {
-            box-shadow: 0 0 0 0.2rem rgba(0, 168, 132, 0.25);
-        }
         @media (max-width: 768px) {
+            body {
+                overflow: hidden;
+                height: 100vh;
+            }
+            .container-fluid {
+                padding: 0;
+                height: 100vh;
+                overflow: hidden;
+            }
+            .row {
+                margin: 0;
+                height: 100vh;
+            }
+            .col-md-4, .col-lg-3 {
+                padding: 0;
+            }
+            .col-md-8, .col-lg-9 {
+                padding: 0;
+            }
             .chat-container {
-                height: calc(100vh - 56px);
+                height: 100vh;
+                border-radius: 0;
+                box-shadow: none;
+                overflow: hidden;
             }
             .user-list {
-                position: absolute;
+                position: fixed;
                 top: 0;
                 left: -100%;
                 width: 100%;
+                height: 100vh;
                 z-index: 1000;
                 transition: left 0.3s ease;
+                background: #f8f9fa;
+                overflow-y: auto;
             }
             .user-list.show {
                 left: 0;
@@ -286,11 +347,103 @@
             .message-bubble {
                 max-width: 85%;
             }
+            .chat-header {
+                padding: 15px 20px;
+                position: sticky;
+                top: 0;
+                z-index: 1001;
+                flex-shrink: 0;
+            }
+            .message-container {
+                padding: 15px 15px 80px 15px;
+                height: calc(100vh - 180px);
+                max-height: calc(100vh - 180px);
+                overflow-y: auto;
+                flex: 1;
+                min-height: 0;
+                margin-bottom: 0;
+            }
+            .message-input-container {
+                padding: 15px;
+                position: sticky;
+                bottom: 0;
+                flex-shrink: 0;
+                height: auto;
+                min-height: 70px;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            }
+            .user-avatar {
+                width: 35px;
+                height: 35px;
+                font-size: 14px;
+            }
+            .room-item {
+                padding: 15px !important;
+            }
+            .room-item h6 {
+                font-size: 14px;
+            }
+            .room-preview {
+                font-size: 12px;
+            }
+            .room-time {
+                font-size: 10px;
+            }
+            .message-bubble {
+                font-size: 14px;
+                padding: 10px 14px;
+            }
+            .message-time {
+                font-size: 10px;
+            }
+            .btn-lg {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+            .form-control-lg {
+                padding: 0.5rem 1rem;
+                font-size: 1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .chat-header {
+                padding: 10px 15px;
+            }
+            .message-container {
+                padding: 10px 10px 70px 10px;
+                height: calc(100vh - 160px);
+                max-height: calc(100vh - 160px);
+                overflow-y: auto;
+                min-height: 0;
+                margin-bottom: 0;
+            }
+            .message-input-container {
+                padding: 10px;
+                height: auto;
+                min-height: 60px;
+                box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            }
+            .room-item {
+                padding: 12px !important;
+            }
+            .user-avatar {
+                width: 30px;
+                height: 30px;
+                font-size: 12px;
+            }
+            .message-bubble {
+                max-width: 90%;
+                font-size: 13px;
+                padding: 8px 12px;
+            }
         }
     </style>
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
+    <link rel="stylesheet"  as="style" href="{{ asset('css/style.css') }}">
 </head>
 <body>
     <div id="app">
@@ -348,7 +501,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4" style="height: calc(100vh - 76px); overflow: hidden;">
             @yield('content')
         </main>
     </div>
