@@ -12,6 +12,24 @@
 
 [🚀 Quick Start](#-quick-start) • [📱 Features](#-features) • [🛠 Installation](#-installation) • [💻 Usage](#-usage) • [🔧 Troubleshooting](#-troubleshooting)
 
+## 📸 Screenshots
+
+<div align="center">
+
+### 🏠 Dashboard Home Screen
+![Dashboard Home Screen](https://i.prnt.sc/g9CeT4zWLIzU)
+
+### 💬 Chat Room Interface
+![Chat Room Interface](https://i.prnt.sc/5nr8gKYsR31x)
+
+### 🔐 Login Page
+![Login Page](https://i.prnt.sc/QZzWfiKkJvyL)
+
+### 📝 Registration Page
+![Registration Page](https://i.prnt.sc/7h2Q5FB9nQDA)
+
+</div>
+
 </div>
 
 ---
@@ -19,6 +37,10 @@
 ## 🌟 What is this?
 
 This is a **real-time chat application** that brings the power of modern messaging to your Laravel application! Think WhatsApp, but built with cutting-edge web technologies. It features instant messaging, online status tracking, typing indicators, and message delivery receipts - all wrapped in a beautiful, responsive interface.
+
+<div align="center">
+<img src="https://i.prnt.sc/5nr8gKYsR31x" alt="Chat Application Preview" width="80%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
+</div>
 
 ### 🎯 Perfect for:
 - **Learning** real-time web development
@@ -49,6 +71,48 @@ This is a **real-time chat application** that brings the power of modern messagi
 - 🔒 **Token-based auth** - Modern authentication
 - 🗄️ **MySQL database** - Reliable data storage
 - ⚡ **Optimized queries** - Fast performance
+
+## 🎨 **Visual Features Showcase**
+
+<div align="center">
+
+### 💬 **Real-time Messaging**
+![Chat Interface](https://i.prnt.sc/5nr8gKYsR31x)
+*WhatsApp-like interface with message bubbles, online status, and typing indicators*
+
+### 🏠 **Clean Dashboard**
+![Dashboard](https://i.prnt.sc/g9CeT4zWLIzU)
+*Modern, responsive dashboard with easy navigation*
+
+### 🔐 **Secure Authentication**
+![Login](https://i.prnt.sc/QZzWfiKkJvyL)
+*Clean login interface with Laravel authentication*
+
+### 📝 **User Registration**
+![Registration](https://i.prnt.sc/7h2Q5FB9nQDA)
+*Simple registration process for new users*
+
+</div>
+
+## 📱 **Page Overview**
+
+| Page | Description | Key Features |
+|------|-------------|--------------|
+| 🏠 **Dashboard** | Main landing page after login | Navigation menu, user info, quick access to chat |
+| 💬 **Chat Room** | Real-time messaging interface | Message bubbles, online status, typing indicators, user list |
+| 🔐 **Login** | User authentication | Email/password login, remember me, secure validation |
+| 📝 **Register** | New user registration | User creation, form validation, automatic login |
+
+<div align="center">
+
+### 🖼️ **Complete Application Flow**
+<img src="https://i.prnt.sc/g9CeT4zWLIzU" alt="Dashboard" width="45%" style="margin: 5px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.prnt.sc/5nr8gKYsR31x" alt="Chat Interface" width="45%" style="margin: 5px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+
+<img src="https://i.prnt.sc/QZzWfiKkJvyL" alt="Login Page" width="45%" style="margin: 5px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+<img src="https://i.prnt.sc/7h2Q5FB9nQDA" alt="Registration Page" width="45%" style="margin: 5px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+
+</div>
 
 ---
 

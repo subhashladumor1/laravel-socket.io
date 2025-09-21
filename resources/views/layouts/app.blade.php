@@ -478,22 +478,40 @@
                                 </li>
                             @endif
                         @else
-                            <li class="nav-item dropdown">
+                            <li class="nav-item dropdown me-3">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item" href="{{ route('home') }}">
+                                        <i class="bi bi-house me-2"></i>Home
+                                    </a>
+                                    <a class="dropdown-item" href="{{ route('chat') }}">
+                                        <i class="bi bi-chat-dots me-2"></i>Chat
+                                    </a>
+                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item text-danger" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        <i class="bi bi-box-arrow-right me-2"></i>{{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
                                 </div>
+                            </li>
+                            
+                            <!-- Direct Logout Button -->
+                            <li class="nav-item">
+                                <a class="btn btn-outline-danger btn-sm" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                             if(confirm('Are you sure you want to logout?')) {
+                                                 document.getElementById('logout-form').submit();
+                                             }">
+                                    <i class="bi bi-box-arrow-right me-1"></i>Logout
+                                </a>
                             </li>
                         @endguest
                     </ul>
