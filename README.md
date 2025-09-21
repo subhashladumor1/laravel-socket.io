@@ -23,7 +23,7 @@
 ![Chat Room Interface](https://i.prnt.sc/5nr8gKYsR31x)
 
 ### 🔐 Login Page
-![Login Page](https://i.prnt.sc/QZzWfiKkJvyL)
+![Login Page](https://i.imghippo.com/files/tnxZ3326BXE.png)
 
 ### 📝 Registration Page
 ![Registration Page](https://i.prnt.sc/7h2Q5FB9nQDA)
